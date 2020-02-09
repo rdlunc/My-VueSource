@@ -18,16 +18,44 @@
 1.[].slice.call(lis): 将伪数组转换为真数组
 2.node.nodeType: 得到节点类型
 3.Object.defineProperty(obj, propertyName, {}): 给对象添加属性（指定描述符）
-
+4.Object.keys(obj): 得到对象自身可枚举属性组成的数组
 5.obj.hasOwnProperty(prop): 判断prop是否是obj自身的属性
 6.DocumentFragment： 文档碎片（高效批量更新多个节点）
 -->
 <script type="text/javascript">
 
+    //6.DocumentFragment： 文档碎片（高效批量更新多个节点）
+    /*
+     * Document: 对应显示的页面，包含n个element，一旦更新Document内部的某个元素，界面更新。
+     * DocumentFragment：内存中保存n个element的容器对象（不与界面关联），如果更新DocumentFragment中的某个元素，界面不变。
+     *
+     * 使用DocumentFragment的好处：从操作界面的多次更新变为了一次批量更新，效率高效。
+     */
+    const ul = document.getElementById('fragment_test');
+    //1.创建fragment
+    const fragment = document.createDocumentFragment();
+    //2.取出ul中所有子节点，取出保存到fragment
+    let child;
+    while(child=ul.firstChild){ //一个节点只能有一个父亲
+        fragment.appendChild(child); //先将child从ul中移除，添加为fragment子节点
+    }
+    //3.更新fragment中所有li文本
+    Array.prototype.slice.call(fragment.childNodes).forEach(node => {
+        if(node.nodeType === 1){ //元素节点 <li>
+            node.textContent = '哈哈';
+        }
+    });
+    //4.将fragment插入ul
+    ul.appendChild(fragment);
+
+
     const obj = {
         firstName: 'A',
         lastName: 'B'
     };
+    //5.obj.hasOwnProperty(prop): 判断prop是否是obj自身的属性
+    console.log(obj.hasOwnProperty('firstName'), obj.hasOwnProperty('toString')); //true false
+
     //4.Object.keys(obj): 得到对象自身可枚举属性组成的数组
     const names = Object.keys(obj);
     console.log(names); // ["firstName", "lastName"]
