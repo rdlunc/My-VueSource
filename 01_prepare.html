@@ -18,17 +18,21 @@
 1.[].slice.call(lis): 将伪数组转换为真数组
 2.node.nodeType: 得到节点类型
 3.Object.defineProperty(obj, propertyName, {}): 给对象添加属性（指定描述符）
-4.Object.keys(obj): 得到对象自身可枚举属性组成的数组
+
 5.obj.hasOwnProperty(prop): 判断prop是否是obj自身的属性
 6.DocumentFragment： 文档碎片（高效批量更新多个节点）
 -->
 <script type="text/javascript">
 
-    //3.Object.defineProperty(obj, propertyName, {}): 给对象添加属性（指定描述符）
     const obj = {
         firstName: 'A',
         lastName: 'B'
     };
+    //4.Object.keys(obj): 得到对象自身可枚举属性组成的数组
+    const names = Object.keys(obj);
+    console.log(names); // ["firstName", "lastName"]
+
+    //3.Object.defineProperty(obj, propertyName, {}): 给对象添加属性（指定描述符）
     // 给obj添加fullName属性
     // obj.fullName = 'A-B'
 
