@@ -87,8 +87,9 @@ Compile.prototype = {
                     compileUtil.eventHandler(node, me.$vm, exp, dir);
 
                 }
-                // 普通指令
+                // 一般（普通）指令
                 else {
+                    //编译指令属性
                     compileUtil[dir] && compileUtil[dir](node, me.$vm, exp);
                 }
 
@@ -213,12 +214,17 @@ var updater = {
 
     //更新节点的className属性值
     classUpdater: function(node, value, oldValue) {
+        // var className = node.className;
+        // className = className.replace(oldValue, '').replace(/\s$/, '');
+        //
+        // var space = className && String(value) ? ' ' : '';
+        //
+        // node.className = className + space + value;
+
+        //静态class属性的值
         var className = node.className;
-        className = className.replace(oldValue, '').replace(/\s$/, '');
-
-        var space = className && String(value) ? ' ' : '';
-
-        node.className = className + space + value;
+        //将静态class属性值与动态class值进行合并后，设置为新的className属性值
+        node.className = className + (className?' ':'') + value;
     },
 
     //更新节点的value属性值
