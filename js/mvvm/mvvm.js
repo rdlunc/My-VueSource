@@ -17,6 +17,7 @@ function MVVM(options) {
         me._proxy(key);
     });
 
+    //对data中所有层次的属性通过数据劫持实现数据绑定
     observe(data, this);
 
     //创建一个编译对象，作用是编译解析模版
